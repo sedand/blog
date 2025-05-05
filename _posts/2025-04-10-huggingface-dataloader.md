@@ -56,7 +56,7 @@ DatasetDict({
 })
 ```
 
-It contains 3 splits and a **test split that contains both images from the `test` and `test_scaled_images` folder!**
+It contains 3 splits and a **test split that contains both images from the `test` and `test_scaled` folder!**
 This even happens if the string "test" is neither a prefix nor postfix but somewhere in the middle of the foldername, e.g. `scaled_test_images`.
 
 I would have much preferred the datasets library to follow a [python Zen](https://peps.python.org/pep-0020/) "do the obvious thing" way here of either producing splits based on the folder names or simply ignoring folders with names not matching the commonly used split names. This would have saved me from having to debug the library to find out it's actual behavior (or having to dive deeply into it's source code).
