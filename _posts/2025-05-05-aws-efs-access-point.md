@@ -5,7 +5,7 @@ date: 2025-05-05 11:03:14 +0200
 categories: aws efs
 tags: aws efs vespa docker filesystem permissions
 ---
-Today I struggled with file permission problems, when running the vespa docker image in AWS ECS. The reason was that by default,[EFS volumes are mounted as user `root` and other users don't have write permissions](https://docs.aws.amazon.com/efs/latest/ug/accessing-fs.html), but [vespa runs as user `vespa`](https://docs.vespa.ai/en/operations-selfhosted/docker-containers.html#start-vespa-container-with-vespa-user) (uid,gid=1000).
+Today I struggled with file permission problems, when running the [vespa](https://vespa.ai/) docker image in AWS ECS. The reason was that by default,[EFS volumes are mounted as user `root` and other users don't have write permissions](https://docs.aws.amazon.com/efs/latest/ug/accessing-fs.html), but [vespa runs as user `vespa`](https://docs.vespa.ai/en/operations-selfhosted/docker-containers.html#start-vespa-container-with-vespa-user) (uid,gid=1000).
 One solution would have been to wrap the vespa docker image using a custom Dockerfile and change the permissions of the volume mountpoint before starting vespa.
 But as that would require building custom images for every new vespa release, **[EFS Access Points](https://docs.aws.amazon.com/efs/latest/ug/enforce-root-directory-access-point.html)** seemed like the correct approach.
 Using these, it is possible to specify root directories inside the EFS volume and define owner uid & gid's for these.
